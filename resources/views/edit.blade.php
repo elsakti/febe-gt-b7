@@ -9,54 +9,55 @@
                     <div class="card-header bg-white py-3">
                         <h4 class="mb-0">
                             <i class="bi bi-box-seam me-2"></i>
-                            Add New Item
+                            Edit {{ $item->name }}
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('item.store') }}" method="POST" class="needs-validation" enctype="multipart/form-data">
+                        <form action="{{ route('item.update', $item->id) }}" method="POST" class="needs-validation" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <!-- Basic Information -->
                             <div class="mb-4">
                                 <h5 class="mb-3">Basic Information</h5>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="itemCode" class="form-label">Item Code</label>
-                                        <input type="text" name="code" class="form-control" id="itemCode" required>
+                                        <input type="text" value="{{ $item->code }}" name="code" class="form-control" id="itemCode" required>
 
                                     </div>
                                     <div class="col-md-6">
                                         <label for="itemName" class="form-label">Item Name</label>
-                                        <input type="text" name="name" class="form-control" id="itemName" required>
+                                        <input type="text" value="{{ $item->name }}" name="name" class="form-control" id="itemName" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="itemStock" class="form-label">Item Stock</label>
-                                        <input type="number" name="stock" class="form-control" id="itemStock" required>
+                                        <input type="number" value="{{ $item->stock }}" name="stock" class="form-control" id="itemStock" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="status" class="form-label">Status</label>
                                         <select class="form-select" name="status" id="status" required>
                                             <option value="">Choose status...</option>
-                                            <option value="in">In</option>
-                                            <option value="out">Out</option>
+                                            <option value="in" {{ $item->status == 'in' ? 'selected' : '' }}>In</option>
+                                            <option value="out" {{ $item->status == 'out' ? 'selected' : '' }}>Out</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="grade" class="form-label">Grade</label>
                                         <select class="form-select" name="grade" id="grade" required>
                                             <option value="">Choose grade...</option>
-                                            <option value="a">a</option>
-                                            <option value="b">b</option>
-                                            <option value="c">c</option>
+                                            <option value="a" {{ $item->grade == 'a' ? 'selected' : '' }}>a</option>
+                                            <option value="b" {{ $item->grade == 'b' ? 'selected' : '' }}>b</option>
+                                            <option value="c" {{ $item->grade == 'c' ? 'selected' : '' }}>c</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="category" class="form-label">Category</label>
                                         <select class="form-select" name="type" id="category" required>
                                             <option value="">Choose category...</option>
-                                            <option value="office supplies">Office Supplies</option>
-                                            <option value="it-equipment">IT Equipment</option>
-                                            <option value="furniture">Furniture</option>
-                                            <option value="tools">Tools</option>
+                                            <option value="office supplies" {{ $item->type == 'office supplies' ? 'selected' : '' }}>Office Supplies</option>
+                                            <option value="it-equipment" {{ $item->type == 'it-equipment' ? 'selected' : '' }}>IT Equipment</option>
+                                            <option value="furniture" {{ $item->type == 'furniture' ? 'selected' : '' }}>Furniture</option>
+                                            <option value="tools" {{ $item->type == 'tools' ? 'selected' : '' }}>Tools</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -64,19 +65,19 @@
                                         <select class="form-select" id="location" name="warehouse_id" required>
                                             <option value="">Choose location...</option>
                                             @foreach ($warehouses as $warehouse)
-                                                <option value="{{ $warehouse->id }}">{{ $warehouse->name }} - {{ $warehouse->address }}</option>
+                                                <option value="{{ $warehouse->id }}" {{ $item->warehouse_id == $warehouse->id ? 'selected' : '' }}>{{ $warehouse->name }} - {{ $warehouse->address }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{-- <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <label for="existingImage">Item Image Now</label>
-                                        <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByaW50ZXJ8ZW58MHx8MHx8fDA%3D"
-                                            class="card-img-top" alt="Network Cable"
+                                        <img src="{{ asset("storage/item-photos/$item->photo") }}"
+                                            class="card-img-top" alt="{{ $item->name }}"
                                             style="height: 200px; object-fit: cover;">
-                                    </div> --}}
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="itemImage" class="form-label">Item Image</label>
-                                        <input type="file" name="photo" class="form-control" id="ItemImage" accept="image/*" required>
+                                        <input type="file" name="photo" class="form-control" id="ItemImage" accept="image/*">
                                     </div>
                                 </div>
                             </div>

@@ -65,7 +65,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Inventory List</h5>
                     <div class="d-flex gap-2">
-                        <a href="form.html" class="btn btn-primary">
+                        <a href="{{ route('form') }}" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-1"></i> Add Item
                         </a>
                     </div>
@@ -80,66 +80,39 @@
                                 <th>Item Code</th>
                                 <th>Name</th>
                                 <th>Category</th>
+                                <th>Stock</th>
                                 <th>Location</th>
-                                <th>Last Updated</th>
+                                <th>Status</th>
+                                <th>Grade</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><span class="badge bg-secondary">ITM001</span></td>
-                                <td>Office Chair</td>
-                                <td>Furniture</td>
-                                <td>Warehouse A</td>
-                                <td>2024-01-15</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="form.html" class="btn btn-sm btn-outline-primary">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><span class="badge bg-secondary">ITM002</span></td>
-                                <td>Printer Paper</td>
-                                <td>Office Supplies</td>
-                                <td>Warehouse B</td>
-                                <td>2024-01-14</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="form.html" class="btn btn-sm btn-outline-primary">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><span class="badge bg-secondary">ITM003</span></td>
-                                <td>Network Cable</td>
-                                <td>IT Equipment</td>
-                                <td>Warehouse A</td>
-                                <td>2024-01-13</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="form.html" class="btn btn-sm btn-outline-primary">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach ($items as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->code }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->stock }}</td>
+                                    <td>{{ $item->warehouse->name }} - {{ $item->warehouse->address }}</td>
+                                    <td>{{ $item->status }}</td>
+                                    <td>{{ $item->grade }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form action="{{ route('item.delete', $item->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" onclick="return confirm('Yakin Ingin menghapus Data?')" class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
