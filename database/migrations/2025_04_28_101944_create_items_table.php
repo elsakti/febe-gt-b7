@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('warehouse_id');
             $table->string('name');
+            $table->string('photo');
             $table->integer('stock');
             $table->string('type');
             $table->enum('status', ['in', 'out']);

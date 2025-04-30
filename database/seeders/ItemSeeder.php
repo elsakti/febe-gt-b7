@@ -18,7 +18,8 @@ class ItemSeeder extends Seeder
         Item::create([
             'name' => 'Sepatu Niki 2025',
             'warehouse_id' => $warehouse->id,
-             'stock' => 12,
+            'stock' => 12,
+            'photo' => 'gambar',
             'type' => 'Pakaian',
             'status' => 'in',
             'code' => '2025GG20',

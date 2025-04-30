@@ -89,82 +89,30 @@
             </a>
         </div>
         <div class="row g-4">
-            <!-- Item Card 1 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1541558869434-2840d308329a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG9mZmljZSUyMGNoYWlyfGVufDB8fDB8fHww"
-                        class="card-img-top" alt="Office Chair" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-secondary">ITM001</span>
-                        </div>
-                        <h5 class="card-title">Office Chair</h5>
-                        <p class="card-text text-muted">Ergonomic office chair with adjustable height and lumbar
-                            support.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <div>
-                                <small class="text-muted d-block">Location</small>
-                                <span>Warehouse A</span>
+            @foreach ($items as $item)
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ asset("storage/item-photos/$item->photo") }}"
+                            class="card-img-top" alt="{{ $item->name }}" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-secondary">{{ $item->code }}</span>
                             </div>
-                            <div class="text-end">
-                                <small class="text-muted d-block">Quantity</small>
-                                <span class="fw-bold">50</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Item Card 2 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByaW50ZXJ8ZW58MHx8MHx8fDA%3D"
-                        class="card-img-top" alt="Printer Paper" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-secondary">ITM002</span>
-                        </div>
-                        <h5 class="card-title">Printer Paper</h5>
-                        <p class="card-text text-muted">A4 size, 80gsm premium quality printer paper for office use.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <div>
-                                <small class="text-muted d-block">Location</small>
-                                <span>Warehouse B</span>
-                            </div>
-                            <div class="text-end">
-                                <small class="text-muted d-block">Quantity</small>
-                                <span class="fw-bold">5</span>
+                            <h5 class="card-title">{{ $item->name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <small class="text-muted d-block">Location</small>
+                                    <span>{{ $item->warehouse->name }} - {{ $item->warehouse->address }}</span>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-muted d-block">Quantity</small>
+                                    <span class="fw-bold">{{ $item->stock }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Item Card 3 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <img src="https://plus.unsplash.com/premium_photo-1675024368160-5bacaa752300?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bmV0d29yayUyMGNhYmxlfGVufDB8fDB8fHww"
-                        class="card-img-top" alt="Network Cable" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-secondary">ITM003</span>
-                        </div>
-                        <h5 class="card-title">Network Cable</h5>
-                        <p class="card-text text-muted">Cat6 ethernet cable for high-speed network connectivity.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <div>
-                                <small class="text-muted d-block">Location</small>
-                                <span>Warehouse A</span>
-                            </div>
-                            <div class="text-end">
-                                <small class="text-muted d-block">Quantity</small>
-                                <span class="fw-bold">0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 

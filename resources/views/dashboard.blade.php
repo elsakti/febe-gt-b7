@@ -65,7 +65,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Inventory List</h5>
                     <div class="d-flex gap-2">
-                        <a href="form.html" class="btn btn-primary">
+                        <a href="{{ route('form') }}" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-1"></i> Add Item
                         </a>
                     </div>
@@ -100,12 +100,15 @@
                                     <td>{{ $item->grade }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="form.html" class="btn btn-sm btn-outline-primary">
+                                            <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
+                                            <form action="{{ route('item.delete', $item->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" onclick="return confirm('Yakin Ingin menghapus Data?')" class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
